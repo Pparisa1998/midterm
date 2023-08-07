@@ -1,13 +1,125 @@
+@import url("https://fonts.googleapis.com/css?family=Kanit&subset=thai,latin");
+@import url("https://fonts.googleapis.com/css2?family=Sarabun:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Mitr:wght@200;300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Itim&display=swap");
+
+:root {
+  --cui-body-color-rgb: 44, 56, 74;
+  --cui-body-bg: #fff;
+  --cui-body-bg-rgb: 255, 255, 255;
+  --cui-emphasis-color: #000015;
+  --cui-emphasis-color-rgb: 0, 0, 21;
+  --cui-secondary-color: rgba(44, 56, 74, 0.681);
+  --cui-secondary-color-rgb: 44, 56, 74;
+  --cui-secondary-bg: #d8dbe0;
+  --cui-secondary-bg-rgb: 216, 219, 224;
+  --cui-tertiary-color: rgba(44, 56, 74, 0.38);
+  --cui-tertiary-color-rgb: 44, 56, 74;
+  --cui-tertiary-bg: #ebedef;
+  --cui-tertiary-bg-rgb: 235, 237, 239;
+  --cui-high-emphasis: rgba(44, 56, 74, 0.95);
+  --cui-medium-emphasis: rgba(44, 56, 74, 0.681);
+  --cui-disabled: rgba(44, 56, 74, 0.38);
+  --cui-high-emphasis-inverse: rgba(255, 255, 255, 0.87);
+  --cui-medium-emphasis-inverse: rgba(255, 255, 255, 0.6);
+  --cui-disabled-inverse: rgba(255, 255, 255, 0.38);
+  --cui-heading-color: inherit;
+  --cui-link-color: #321fdb;
+  --cui-link-color-rgb: 50, 31, 219;
+  --cui-link-decoration: underline;
+  --cui-link-hover-color: #2819af;
+  --cui-link-hover-color-rgb: 40, 25, 175;
+  --cui-code-color: #d63384;
+  --cui-highlight-bg: #fff3cd;
+  --cui-border-width: 1px;
+  --cui-border-color: #d8dbe0;
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  /* font-family: 'Kanit', sans-serif; */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+.image__round {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 0px solid #ddd;
+}
+
+.text-change {
+  color: white;
+}
+
+.text-change:hover {
+  color: var(--cui-blue);
+}
+
+.footer {
+  --cui-footer-min-height: 3rem;
+  --cui-footer-padding-x: 1rem;
+  --cui-footer-padding-y: 0.5rem;
+  --cui-footer-color: var(--cui-body-color);
+  --cui-footer-bg: var(--cui-tertiary-bg);
+  --cui-footer-border-color: var(--cui-border-color);
+  --cui-footer-border: var(--cui-border-width) solid
+    var(--cui-footer-border-color);
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  min-height: var(--cui-footer-min-height);
+  padding: var(--cui-footer-padding-y) var(--cui-footer-padding-x);
+  color: var(--cui-footer-color);
+  background: var(--cui-footer-bg);
+  border-top: var(--cui-footer-border);
+}
+
+.text-noline {
+  text-decoration: none;
+}
+
+.text-noline:hover {
+  color: #dc3545;
+}
+
+.text--line {
+  text-decoration: underline;
+}
+
+.link {
+  color: white;
+}
+
+.link:hover {
+  color: yellow;
+}
+
+.sarabun {
+  font-family: "Sarabun", sans-serif;
+}
+
+.mitr {
+  font-family: "Mitr", sans-serif;
+}
+
+.itim {
+  font-family: "Itim", cursive;
+}
+
+p {
+  font-family: "Itim";
+  margin-bottom: 20px;
+  line-height: 15px;
 }
