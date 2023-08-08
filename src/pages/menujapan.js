@@ -1,116 +1,110 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Menu } from "../index"
+import { Menu } from "../index";
 import { Footer } from "../index";
 import { Container, Row, Col, Button, Table } from "react-bootstrap";
-import data from './menujapan.json';
 
-function MenuTable(props) {
-  const [menu, setMenu] = useState(props.data);
-  const [newMenu, setNewMenu] = useState({
-    name: "",
-    price: ""
-  });
-  // const sum = data.price[0] + data.price[1] + data.price[2]
+export default function MenuJapan() {
+  const data = [
+    { name: "ซูชิหน้าปลาแซลม่อน", price: 120 },
+    { name: "ปลาซาบะย่างซีอิ้ว", price: 130 },
+    { name: "เกี๊ยวซ่า", price: 150 },
+  ];
 
-  const createMenu = () => {
-    // const sum = menu.price[0] + menu.price[1] + menu+price[2];
-    setMenu([...menu, 
-      { id: menu.length + 1, ...newMenu }]
-    );
-    setNewMenu({ name: "", price: ""});
+  const sum = data.reduce((plus, object) => {
+    return plus + object.price;
+  }, 0);
+
+  const nameMenu = useRef(null);
+  const priceMenu = useRef(null);
+
+  const [menuList, setMenuList] = useState(data);
+  const [totalPrice, setTotalPrice] = useState(sum);
+
+  const avg = (totalPrice / menuList.length).toFixed(2);
+
+  const handleFormSubmit = (event) => {
+    event.preventDefault();
+
+    const val1 = nameMenu.current.value;
+    const val2 = priceMenu.current.value;
+
+    setMenuList((current) => [...current, { name: val1, price: val2 }]);
+    setTotalPrice(parseInt(totalPrice) + parseInt(priceMenu.current.value));
+
+    event.target.reset();
   };
-
-  const handleOnChange = e => {
-    setNewMenu({
-      ...newMenu,
-      [e.target.name]: e.target.value
-    });
-  };
-
-  const [totalItems, setTotalItems] = useState(0);
-  const [totalPrice, setTotalPrice] = useState(0);
 
   return (
     <>
-      <Row>
-        <Col className='my-3 col-12'>
-          <table className='table table-striped table-bordered'>
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">ชื่อเมนู</th>
-                <th scope="col">ราคา (บาท)</th>
-              </tr>
-            </thead>
-            <tbody>
-              {menu.map(row => (
+      <Menu />
+
+      <Container className="p-3 my-3">
+        <Row>
+          <Col className="col-12 my-3">
+            <Table striped bordered>
+              <thead>
                 <tr>
-                  <td>{row.id}</td>
-                  <td>{row.name}</td>
-                  <td>{row.price}</td>
+                  <th scope="col">#</th>
+                  <th scope="col" style={{ width: "50%" }}>
+                    ชื่อเมนู
+                  </th>
+                  <th scope="col">ราคา (บาท)</th>
                 </tr>
-              ))}
-               <tr>
-                <td colspan="2">รวม</td>
-                <td>470</td>
-               </tr>
-               <tr>
-                <td colspan="2">เฉลี่ย</td>
-                <td>117.5</td>
-               </tr>
-            </tbody>
-          </table>
-        </Col>
-      </Row>
-      <Row>
-        <Col className='col-12'>
-        <form>
-          <label className="px-2"> ชื่อเมนู </label>
-          <input 
-              type="text"
-              name="name"
-              id="name"
-              onChange={handleOnChange}
-              value={newMenu.name}
-              className="form-control d-inline"
-              style={{width: "20%", margin: "0 10px"}} 
-              required="required"
-          />
-          <label> ราคา </label>
-          <input 
-              type="text"
-              name="price"
-              id="price"
-              onChange={handleOnChange}
-              value={newMenu.price}
-              className="form-control d-inline"
-              style={{width: "20%", margin: "0 10px"}}
-              required="required"
-          />
-          <Button onClick={createMenu} type='submit'> add </Button>    
-        </form>
-        
-            
-        </Col>
-      </Row>
+              </thead>
+              <tbody>
+                {menuList.map((val, key) => {
+                  return (
+                    <tr key={key}>
+                      <td>{key + 1}</td>
+                      <td>{val.name}</td>
+                      <td>{val.price}</td>
+                    </tr>
+                  );
+                })}
+                <tr>
+                  <td colspan="2">รวม</td>
+                  <td>
+                    {totalPrice} <span className="px-3"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="2">เฉลี่ย</td>
+                  <td>
+                    {avg} <span className="px-3"></span>
+                  </td>
+                </tr>
+              </tbody>
+            </Table>
+          </Col>
+          <Row>
+            <Col className="col-12">
+              <form onSubmit={handleFormSubmit}>
+                <h1>เพิ่มเมนูใหม่</h1>
+                <label className="px-2">ชื่อเมนู</label>
+                <input
+                  ref={nameMenu}
+                  name="name"
+                  required="required"
+                  className="form-control d-inline"
+                  style={{ width: "20%", margin: "0 10px" }}
+                />
+                <label>ราคา</label>
+                <input
+                  ref={priceMenu}
+                  name="price"
+                  required="required"
+                  className="form-control d-inline"
+                  style={{ width: "20%", margin: "0 10px" }}
+                />
+                <Button type="submit"> add </Button>
+              </form>
+            </Col>
+          </Row>
+        </Row>
+      </Container>
+
+      <Footer />
     </>
   );
-}
-
-
-export default function MenuJapan() {
-
-    return(
-        <>
-            <Menu />
-
-                <Container className='p-3 my-3'>
-                  <MenuTable data={data} />
-                </Container>
-
-            <Footer />
-            
-        </>
-    )
 }
